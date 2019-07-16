@@ -38,4 +38,21 @@ knn.fit(feature_train,label_train)  #开始训练
 result=knn.predict(feature_test)    #预测结果
 var=np.mean(result==label_test) #获得准确值
 print(var)
+
+from matplotlib import pyplot as plt    #导入pyplot函数，命名为plt
+#%matplotlib inline     #在Anaconda的Jupyter Notebook中才需要加入，可以直接显示折线图而不需要加入plt.show()
+x=list()    #初始化x
+y=list()    #初始化y
+for i in range(1,21):   #设定i值作为KNN算法中的K，画出折线图看看那个K是最好的数值
+    knn = neighbors.KNeighborsClassifier(i)     #设定KNN算法的k为i
+    knn.fit(feature_train,label_train)  #开始训练
+    result=knn.predict(feature_test)    #预测结果
+    acc=np.mean(result==label_test)     #利用np取得平均值
+    x.append(i)     #将i值加入到x轴
+    y.append(acc)   #将acc值加入到y轴
+plt.plot(x,y,color='c',alpha=0.5)   #设定折线图的参数
+plt.xlabel('K')                     #设定折线图的横轴标题
+plt.ylabel('acc')                   #设定折线图的纵坐标标题
+plt.xticks(x)                       #设定横坐标的坐标分度
+plt.show()                          #显示折线图
 ```
